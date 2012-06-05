@@ -25,9 +25,15 @@
 				$('> ' + self.options.divs.content, self).bind("touchend", function(e){
 					
 					if(self.lastMoves.length >= 2){
-						if(Math.abs(self.lastMoves.pop().pageY - self.lastMoves.pop().pageY) >= 3){
-							$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab,self).css({ opacity: 0.1 });
+						if(Math.abs(self.lastMoves.pop().pageY - self.lastMoves.pop().pageY) >= 2){
+							$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab,self).css({
+								opacity: 0
+							});
 						}
+					} else {
+						$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab,self).css({
+							opacity: 1
+						});
 					}
 					self.lastMoves = [];
 				});
@@ -46,7 +52,9 @@
 				$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab,self).css('top', Math.round( $(self.options.divs.content, self).scrollTop() * scrollPercent)+'px');
 				$('> ' + self.options.divs.content, self).unbind('scroll').scroll(
 					function(){
-						$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab,self).css({ opacity: 1 });
+						$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab,self).css({
+							opacity: 1
+						});
 						$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab,self).css('top', Math.round( $(this).scrollTop() * scrollPercent)+'px');
 					});
 			} else {
