@@ -28,6 +28,7 @@ root {
 	right: 0px;
 	background : rgba(0,0,0,.1);
 }
+
 .scrollgrab{
 	background: rgba(0,0,0,.5);
 	width: 6px;
@@ -48,5 +49,6 @@ root {
 	right: -15px;
 	position: absolute;
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 

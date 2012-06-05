@@ -7,14 +7,19 @@
 				scroll_bar  : 'scrollbar',
 				scroll_grab : 'scrollgrab'
 			},
-			update: true
+			update_time : 400
+			
 		},
-		setScroll : function(self){
+		set_scroll : function(self){
 			if($( '> '+ self.options.divs.content, self).outerHeight() < self.currentScrollHeight){
 				var scrollPercent = $( '> '+self.options.divs.content, self).outerHeight() /  self.currentScrollHeight;
 				var scrollbarHeight = Math.round( $('> ' + self.options.divs.content , self).height()  * scrollPercent) ;
 				$('> .' + self.options.divs.scroll_bar,self).show().find('> .' + self.options.divs.scroll_grab).height( scrollbarHeight + 'px');
 
+				$('> ' + self.options.divs.content, self).bind("touchend", function(ev){
+					console.log(ev); // good
+				});
+	
 				if($.fn.drag){
 					$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab, self).unbind('drag').drag(function( ev, dd ){
 						$('> ' + self.options.divs.content , self).scrollTop(dd.offsetY/scrollPercent);
@@ -29,27 +34,37 @@
 			} else {
 				$('> .' + self.options.divs.scroll_bar, self).hide();
 			}
-		}
-	});
-
-	setInterval(function(){
-		for(var i in _plugin.update ){
-			if(_plugin.update[i].currentScrollHeight != $('> '+_plugin.update[i].options.divs.content, _plugin.update[i]).prop('scrollHeight')){
-				_plugin.update[i].currentScrollHeight  = $('> '+_plugin.update[i].options.divs.content, _plugin.update[i]).prop('scrollHeight');
-				_plugin.setScroll(_plugin.update[i]);
+		},
+		add_to_update : function(item){
+			_plugin.update.push(item);
+			_plugin.start_update();
+		},
+		start_update : function(){
+			if(!_plugin.interval_id){
+				_plugin.interval_id = setInterval(function(){
+					for(var i in _plugin.update ){
+						if(_plugin.update[i].currentScrollHeight != $('> '+_plugin.update[i].options.divs.content, _plugin.update[i]).prop('scrollHeight')){
+							_plugin.update[i].currentScrollHeight  = $('> '+_plugin.update[i].options.divs.content, _plugin.update[i]).prop('scrollHeight');
+							_plugin.set_scroll(_plugin.update[i]);
+						}
+					}
+				}, _plugin.options.update_time);
 			}
-		}
-	}, 400);
-		
+		}, 
+		interval_id : false
+	});
+	
 	$.fn.vanG = function() {
 		return this.each(function(defaults) {
 			var self = this;
-			self.options = $.extend(_plugin.options, defaults);
-			self.currentScrollHeight = $('> '+self.options.divs.content, this).prop('scrollHeight');
-			$(this).append('<div class="'+self.options.divs.scroll_bar+'"><div class="'+self.options.divs.scroll_grab+'"></div></div>' );
-
-			_plugin.setScroll (self);
-			_plugin.update.push(self)
+			if(!self.hasScroll){
+				self.hasScroll = true;
+				self.options = $.extend(_plugin.options, defaults);
+				self.currentScrollHeight = $('> '+self.options.divs.content, self).prop('scrollHeight');
+				$(self).append('<div class="'+self.options.divs.scroll_bar+'"><div class="'+self.options.divs.scroll_grab+'"></div></div>' );
+				_plugin.set_scroll (self);
+				_plugin.add_to_update(self);
+			}
 		});
 	};
 })( jQuery );
