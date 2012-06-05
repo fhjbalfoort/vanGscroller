@@ -1,0 +1,52 @@
+/* 
+    Document   : test
+    Created on : Jun 2, 2012, 10:15:43 PM
+    Author     : fhjbalfoort
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+.frame{
+	width: 200px;
+	height: 200px;
+	border: 1px solid black;
+}
+
+.scroller {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.scrollbar{
+	width:6px;
+	height: 100%;
+	position: absolute;
+	right: 0px;
+	background : rgba(0,0,0,.1);
+}
+.scrollgrab{
+	background: rgba(0,0,0,.5);
+	width: 6px;
+	height: 0px;
+	background-color: black;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	border-radius: 15px;
+
+}
+
+
+.content {
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: -15px;
+	position: absolute;
+	overflow-y: scroll;
+}
+
