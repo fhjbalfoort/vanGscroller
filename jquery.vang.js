@@ -15,11 +15,11 @@
 				var scrollbarHeight = Math.round( $('> ' + self.options.divs.content , self).height()  * scrollPercent) ;
 				$('> .' + self.options.divs.scroll_bar,self).show().find('> .' + self.options.divs.scroll_grab).height( scrollbarHeight + 'px');
 
-				$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab, self).unbind('drag').drag(function( ev, dd ){
-					if(dd.offsetY >= dd.startY-2 && dd.offsetY-dd.startY <= ($('> ' + self.options.divs.content , self).outerHeight()  )){
-						$('> ' + self.options.divs.content , self).scrollTop((dd.offsetY-dd.startY)/ scrollPercent);
-					}
-				});
+				if($.fn.drag){
+					$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab, self).unbind('drag').drag(function( ev, dd ){
+						$('> ' + self.options.divs.content , self).scrollTop(dd.offsetY/scrollPercent);
+					});
+				}
 
 				$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab,self).css('top', Math.round( $(self.options.divs.content, self).scrollTop() * scrollPercent)+'px');
 				$('> ' + self.options.divs.content, self).unbind('scroll').scroll(
