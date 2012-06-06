@@ -33,6 +33,7 @@ root {
 	background: rgba(0,0,0,.5);
 	width: 6px;
 	height: 0px;
+	min-height: 20px;
 	background-color: black;
 	position: relative;
 	top: 0px;
