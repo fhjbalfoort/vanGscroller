@@ -22,29 +22,35 @@ root {
     width: 100%;
 }
 .scrollbar{
-	width:6px;
+	width:10px;
 	height: 100%;
 	position: absolute;
 	right: 0px;
-	background : rgba(0,0,0,.1);
-}
-
-.scrollgrab{
-	background: rgba(0,0,0,.5);
-	width: 6px;
-	height: 0px;
-	min-height: 20px;
-	background-color: black;
-	position: relative;
-	top: 0px;
-	left: 0px;
-	border-radius: 15px;
-	opacity: 1;
+	background : rgba(0,0,0,.05);
+	
+	opacity: 0;
 	-webkit-transition: opacity 0.5s;
 	-moz-transition: opacity 0.5s;
 	-ms-transition: opacity 0.5s;
 	-o-transition: opacity 0.5s;
 	transition: opacity 0.5s;
+}
+
+	.scroller:hover .scrollbar {
+		opacity: 1;
+	}
+
+.scrollgrab{
+	width: 6px;
+	height: 0px;
+	min-height: 20px;
+	margin: 0 auto;
+	background-color: black;
+	position: relative;
+	top: 0px;
+	border-radius: 15px;
+	opacity: 1;
+	background: rgba(0,0,0,.5);
 }
 
 
