@@ -22,6 +22,7 @@
 				
 
 				});
+				
 				$('> ' + self.options.divs.content, self).bind("touchend", function(e){
 					
 					if(self.lastMoves.length >= 2){
@@ -38,14 +39,9 @@
 					self.lastMoves = [];
 				});
 
-
-
-				
-
-	
 				if($.fn.drag){
 					$('> .' + self.options.divs.scroll_bar + ' > .' + self.options.divs.scroll_grab, self).unbind('drag').drag(function( ev, dd ){
-						$('> ' + self.options.divs.content , self).scrollTop(dd.offsetY/scrollPercent);
+						$('> ' + self.options.divs.content , self).scrollTop((dd.offsetY-dd.originalY)/scrollPercent);
 					});
 				}
 
